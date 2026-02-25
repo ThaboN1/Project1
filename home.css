@@ -144,7 +144,9 @@ footer{
 }
 
 .container{
-    width: 1140px;
+    max-width: 1140px;
+    width: 100%;
+    justify-content: space-between;
     margin: auto;
    display: flex;
 }
@@ -213,10 +215,7 @@ footer{
     color: blue;
 }
 
-.level{
-    margin-top: 6px;
-    margin-right: 90px;
-}
+
 
 @media(max-width:800px){
     .container{
@@ -231,9 +230,6 @@ footer{
         margin-bottom: 20px;
     }
 
-    .level{
-        margin-left: 80;
-    }
 
     .micon{
         display: block;
@@ -262,6 +258,7 @@ footer{
         text-align: center;
     }
 }
+
 
 
 
