@@ -1,0 +1,273 @@
+*{
+    margin: 0;
+    padding: 0;
+    scroll-margin-top: 80px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+header{
+    min-height: 100vh;
+    width: 100%;
+    background-position: center;
+    
+    /*come finish background*/
+}
+
+nav{
+    background-color: gold;
+    box-shadow: 3px 3px 8px black;
+}
+
+nav ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav li{
+    height: 50px;
+    position: relative;
+}
+
+nav a{
+    height: 100%;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+
+}
+
+nav ul li::after{
+    content: '';
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    bottom: 8px;
+    height: 4px;
+    width: 0%;
+    background: purple;
+    transition: width 0.3s ease;
+}
+
+nav ul li:hover::after{
+    width: calc(100% - 60px);
+}
+
+.logo{
+    width: 100px;
+    cursor: pointer;
+    margin: 5px;
+    margin-right: auto;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.active{
+    transform: translateX(0);
+}
+
+.sidebar li{
+    width: 100%;
+}
+
+.sidebar a{
+    width: 100%;
+}
+
+.micon{
+    display: none;
+}
+
+.footer-content{
+    width: 190px;
+    margin: auto;
+    padding: 7px;
+}
+
+.footer-content ul{
+    text-align: center;
+}
+
+.bottom-bar{
+    background-color: gold;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 50px;
+}
+
+.bottom-bar p{
+    color: white;
+    margin: 0;
+    font-size: 14px;
+    padding: 7px;
+
+}
+
+.barca li{
+    padding: 3px 0;
+    margin: 0;
+}
+
+.barca{
+    padding: 0;
+    list-style: none;
+    margin-top: 5px;
+    text-align: center;
+}
+
+footer{
+    background-color: #343434;
+    padding-top: 20px;
+    color: white;
+}
+
+.container{
+    width: 1140px;
+    margin: auto;
+   display: flex;
+}
+
+.footer-content{
+    width: 300px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.footh, .footh2{
+    font-size: 24px;
+    text-align: center;
+    margin: 0 0 10px 0;
+
+}
+
+.barca{
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.barca li{
+    padding: 4px 0;
+}
+
+.list{
+    padding: 0;
+}
+
+.list li{
+    width: auto;
+    text-align: center;
+    list-style-type: none;
+    padding: 7px;
+    position: relative;
+}
+
+
+.list li::before{
+    content: '';
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 100%;
+    width: 0;
+    height: 2px;
+    background: purple;
+    transition-duration: .5s;
+}
+
+.list li:hover::before{
+    width: 70px;
+}
+
+.footer-content a{
+    text-decoration: none;
+    color: white;
+}
+
+.gett a{
+    text-decoration: underline;
+    color: blue;
+}
+
+.level{
+    margin-top: 6px;
+    margin-right: 90px;
+}
+
+@media(max-width:800px){
+    .container{
+        width:100%;
+        flex-direction:column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-content{
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .level{
+        margin-left: 80;
+    }
+
+    .micon{
+        display: block;
+        margin-top: -80px; /*come back here*/
+    }
+
+    .nav{
+        height: 90px;
+    }
+
+    .logo{
+        margin-bottom: 60px;
+    }
+
+    .menu1{
+        display: none;
+        position: absolute;
+    }
+
+    .footh, .footh2{
+        margin-top: 20px;
+        margin-left: 0;
+    }
+
+    .barca{
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="Images/png" href="Images/favicon.png">
+    <link rel="stylesheet" href="home.css">
+    <title>Acts Of The Apostles</title>
+
+</head>
+<body>
+    <section class="header">
+        <nav>
+               <div class="navlinks">
+        <ul class="sidebar">
+            <li onclick="hideSidebar()" style="cursor: pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                </svg>
+            </li>
+
+            <li class="menu"><a href="index2.html">Welcome Page</a></li>
+            <li class="menu"><a href="#goal">Mission</a></li>
+            <li class="menu"><a href="#us">About</a></li>
+            <li class="menu"><a href="#cont">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="navlinks2">
+        <ul>
+            <img src="Images/Logo2.0.png" class="logo">
+
+            <li class="menu1"><a href="#">Home</a></li>
+            <li class="menu1"><a href="#goal">Mission</a></li>
+            <li class="menu1"><a href="#us">About</a></li>
+            <li class="menu1"><a href="#cont">Contact</a></li>
+
+            <li class="micon" onclick="showSidebar()">
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                        <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z"/>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+        
+    </section>
+    <section>
+       
+    </section>
+
+
+    
+
+<footer>
+    <div class="container">
+
+        <div class="footer-content">
+            <h3 class="footh2"id="cont">Contact Us</h3>
+            <p>Email: Info@gmail.com</p>
+            <br>
+            <p>Phone: +27 65 911 3967</p>
+            <br>
+
+            <p class="address-title">Address:</p>
+            <ul class="barca">
+                <li>Barcelona Ext 32, Etwatwa</li>
+                <li>Benoni, East Rand</li>
+                <li>City Of Ekurhuleni</li>
+                <li class="gett"><a href="https://www.waze.com/live-map/directions/south-africa/gauteng/benoni/34049-barcelona-st?to=place.ChIJITapZ4E5lR4Rf4l9sgu7-zE&utm_source=chatgpt.com" target="_blank">Visit Map</a></li>
+            </ul>
+        </div>
+
+        <div class="level">
+        <div class="footer-content">
+            <h3 class="footh">Quick Links</h3>
+            <ul class="list">
+                <li><a href="#">Home</a></li>
+                <li><a href="#goal">Mission</a></li>
+                <li><a href="#us">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        </div>
+
+
+    </div>
+
+    <div class="bottom-bar">
+        <p>&copy; 2021 Acts Of The Apostles. All rights reserved</p>
+    </div>
+</footer>
+
+
+
+
+
+    <script>
+function showSidebar(){
+    document.querySelector('.sidebar').classList.add('active');
+}
+
+function hideSidebar(){
+    document.querySelector('.sidebar').classList.remove('active');
+}
+
+window.onload = function(){
+    window.scrollTo(0, 0);
+};
+</script>
+    
+</body>
+</html>
