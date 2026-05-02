@@ -12,7 +12,8 @@ html {
     min-height: 100vh;
     width: 100%;
     background-position: center;
-    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(Images/Actual.png);
+    background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(Images/Actual.webp);
+
     background-size: cover;
     position: relative;
 }
@@ -116,8 +117,8 @@ nav ul li:hover::after {
     text-align: center;
 }
 
-.stat h1 {
-    font-size: 80px;
+.stat h1, .stat h2, .stat h3 {
+    will-change: transform;
     color: gold;
 }
 
@@ -441,3 +442,12 @@ footer {
         font-size: 22px;
     }
 }
+
+
+
+
+img {
+    content-visibility: auto;
+}
+
+
