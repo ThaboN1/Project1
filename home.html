@@ -2,116 +2,953 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="Images/png" href="Images/favicon.png">
-    <link rel="stylesheet" href="home.css">
-    <title>Acts Of The Apostles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <title>Acts Of The Apostles | Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-margin-top: 90px;
+        }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #fefef7;
+            color: #1e1e2a;
+            line-height: 1.5;
+        }
+
+        .header {
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.6)), 
+                        url('Images/Actual.png') center/cover no-repeat;
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        nav {
+            background-color: gold;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            width: 100%;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav li {
+            height: 50px;
+            position: relative;
+        }
+
+        nav a {
+            height: 100%;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            transition: 0.2s;
+        }
+
+        nav ul li::after {
+            content: '';
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            bottom: 8px;
+            height: 3px;
+            width: 0%;
+            background: purple;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li:hover::after {
+            width: calc(100% - 60px);
+        }
+
+        .logo {
+            width: 85px;
+            cursor: pointer;
+            margin: 6px 20px 6px 30px;
+            margin-right: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 280px;
+            z-index: 2000;
+            background: gold;
+            box-shadow: -8px 0 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar li {
+            width: 100%;
+            height: auto;
+        }
+        .sidebar a {
+            padding: 18px 28px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            color: white;
+        }
+        .sidebar li:first-child svg {
+            margin: 16px 0 8px 20px;
+            fill: white;
+        }
+
+        .micon {
+            display: none;
+            margin-top: 0;
+        }
+
+        .menu1 {
+            display: flex;
+        }
+
+        .welcome-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            color: whitesmoke;
+        }
+        .welcome-badge h1 {
+            font-size: 3.8rem;
+            text-shadow: 0 4px 12px black;
+            letter-spacing: 2px;
+            color: #ffdf80;
+        }
+        .welcome-badge p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 20px auto 0;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        .scripture-ref {
+            font-size: 1rem;
+            margin-top: 15px;
+            color: #ffdf80;
+        }
+
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+        .section-title {
+            font-size: 2.6rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1f2a3e;
+            position: relative;
+            font-weight: 700;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 90px;
+            height: 4px;
+            background: #ffc107;
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+        .section-sub {
+            text-align: center;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto 48px auto;
+            font-size: 1.1rem;
+        }
+
+        .announce-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 20px;
+        }
+        .announce-card {
+            background: gold;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .announce-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.12);
+        }
+        .card-badge {
+            background: purple;
+            padding: 8px 18px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px 0 0 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: white;
+        }
+        .announce-card h3 {
+            font-size: 1.7rem;
+            margin: 12px 24px 10px;
+            color: #1f2a3e;
+            font-weight: 700;
+        }
+        .announce-card p {
+            margin: 0 24px 24px 24px;
+            color: #1f2a3e;
+            line-height: 1.5;
+        }
+        .date-chip {
+            margin: 0 24px 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b45309;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .events-wrapper {
+            background: #f9f6ef;
+            border-radius: 48px;
+            padding: 32px 28px;
+            margin-top: 20px;
+        }
+        .event-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 24px;
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 24px;
+            padding: 12px 24px 12px 16px;
+            transition: 0.2s;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.03);
+            border: 1px solid #f0e6d2;
+        }
+        .event-date {
+            background: #1f2a3e;
+            color: #ffd966;
+            border-radius: 32px;
+            padding: 8px 18px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 110px;
+        }
+        .event-date span {
+            font-size: 1.4rem;
+            display: block;
+            font-weight: 800;
+        }
+        .event-info {
+            flex: 1;
+        }
+        .event-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+        .event-time {
+            color: #b45309;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .event-btn {
+            background: none;
+            border: 2px solid #ffc107;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: 0.2s;
+            cursor: default;
+            color: #1f2a3e;
+        }
+
+        .gallery-modern {
+            background: #ffffff;
+            border-radius: 48px;
+            margin-top: 20px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.35s ease;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 20px 16px 12px;
+            opacity: 0;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .contact-form-wrapper {
+            background: #ffffff;
+            border-radius: 48px;
+            padding: 40px 36px;
+            margin-top: 30px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.05);
+            border: 1px solid #f0e6d2;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e2f;
+            font-size: 0.95rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 28px;
+            border: 1px solid #e2dccd;
+            background: white;
+            font-size: 1rem;
+            transition: 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #ffc107;
+            box-shadow: 0 0 0 3px rgba(255,193,7,0.2);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .submit-btn {
+            background: #1f2a3e;
+            color: white;
+            border: none;
+            padding: 14px 38px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+        .submit-btn:hover {
+            background: #ffc107;
+            color: #1f2a3e;
+            transform: translateY(-2px);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .form-status {
+            margin-top: 24px;
+            padding: 14px;
+            border-radius: 60px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        .form-status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+            border-left: 5px solid #28a745;
+        }
+        .form-status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+            border-left: 5px solid #dc3545;
+        }
+        .form-status.loading {
+            background: #fff3cd;
+            color: #856404;
+            display: block;
+            border-left: 5px solid #ffc107;
+        }
+
+        .mission-block, .about-block {
+            background: #fff9ef;
+            border-radius: 40px;
+            padding: 32px 36px;
+            margin: 30px 0;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .verse-ref {
+            color: #2c5282;
+            font-style: italic;
+            font-weight: 500;
+            margin: 15px 0 8px;
+        }
+        .mission-text, .about-text {
+            font-size: 1.08rem;
+            line-height: 1.6;
+            color: #2c2c3a;
+        }
+
+        footer {
+            background: #1e2a32;
+            color: #eef2f5;
+            padding-top: 40px;
+            margin-top: 60px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 0 30px;
+        }
+        .footer-content {
+            flex: 1;
+            min-width: 200px;
+        }
+        .footh, .footh2 {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            color: #ffcd4a;
+        }
+        .barca, .list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .barca li, .list li {
+            margin: 10px 0;
+        }
+        .footer-content a {
+            color: #ffd966;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .footer-content a:hover {
+            text-decoration: underline;
+            color: white;
+        }
+        .gett a {
+            text-decoration: underline;
+            color: #80b3ff;
+        }
+        .bottom-bar {
+            background: #ffc107;
+            text-align: center;
+            padding: 14px;
+            margin-top: 40px;
+            color: #1f2a3e;
+            font-weight: 500;
+        }
+
+        @media (max-width: 800px) {
+            .menu1 {
+                display: none;
+            }
+            .micon {
+                display: block;
+                margin-top: 0;
+            }
+            nav {
+                height: 70px;
+                background-color: gold;
+            }
+            .logo {
+                margin-bottom: 0;
+                width: 70px;
+            }
+            .welcome-badge h1 {
+                font-size: 40px;
+            }
+            .welcome-badge p {
+                font-size: 16px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .section-container {
+                padding: 40px 20px;
+            }
+            .event-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .event-date {
+                width: auto;
+            }
+            .container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-content {
+                width: 100%;
+                text-align: center;
+            }
+            .contact-form-wrapper {
+                padding: 28px 20px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 18px;
+            }
+            .sidebar {
+                background: gold;
+            }
+            .sidebar a {
+                color: white;
+            }
+        }
+
+        @media (min-width: 801px) {
+            .sidebar {
+                display: none !important;
+            }
+            .micon {
+                display: none !important;
+            }
+            .menu1 {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .announce-card h3 {
+                font-size: 1.4rem;
+            }
+            .gallery-grid {
+                gap: 16px;
+            }
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <section class="header">
         <nav>
-               <div class="navlinks">
-        <ul class="sidebar">
-            <li onclick="hideSidebar()" style="cursor: pointer;">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                    <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-                </svg>
-            </li>
-
-            <li class="menu"><a href="index.html">Welcome Page</a></li>
-            <li class="menu"><a href="#goal">Mission</a></li>
-            <li class="menu"><a href="#us">About</a></li>
-            <li class="menu"><a href="#cont">Contact</a></li>
-        </ul>
-    </div>
-
-    <div class="navlinks2">
-        <ul>
-            <img src="Images/Logo2.0.png" class="logo">
-
-            <li class="menu1"><a href="#">Home</a></li>
-            <li class="menu1"><a href="#goal">Mission</a></li>
-            <li class="menu1"><a href="#us">About</a></li>
-            <li class="menu1"><a href="#cont">Contact</a></li>
-
-            <li class="micon" onclick="showSidebar()">
-                <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                        <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z"/>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-        
-    </section>
-    <section>
-       
+            <div class="navlinks">
+                <ul class="sidebar" id="sidebarMenu">
+                    <li onclick="hideSidebar()" style="cursor: pointer; padding: 16px 0 0 20px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="white">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                        </svg>
+                    </li>
+                    <li class="menu"><a href="firstpagetrial.html">Welcome Page</a></li>
+                    <li class="menu"><a href="#mission-goal">Mission</a></li>
+                    <li class="menu"><a href="#about-us">About</a></li>
+                    <li class="menu"><a href="#contact-section">Contact</a></li>
+                    <li class="menu"><a href="#gallery">Gallery</a></li>
+                </ul>
+            </div>
+            <div class="navlinks2">
+                <ul>
+                    <img src="Images/Logo2.0.png" class="logo" alt="Acts of the Apostles Logo">
+                    <li class="menu1"><a href="firstpagetrial.html">Welcome Page</a></li>
+                    <li class="menu1"><a href="#mission-goal">Mission</a></li>
+                    <li class="menu1"><a href="#about-us">About</a></li>
+                    <li class="menu1"><a href="#contact-section">Contact</a></li>
+                    <li class="menu1"><a href="#gallery">Gallery</a></li>
+                    <li class="micon" onclick="showSidebar()">
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="white">
+                                <path d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="welcome-badge">
+            <h1>ACTS OF THE APOSTLES</h1>
+            <p>A Church With A Vision</p>
+            <div class="scripture-ref">Mark 16:15</div>
+        </div>
     </section>
 
-
-    
-
-<footer>
-    <div class="container">
-
-        <div class="footer-content">
-            <h3 class="footh2"id="cont">Contact Us</h3>
-            <p>Email: Info@gmail.com</p>
-            <br>
-            <p>Phone: +27 65 911 3967</p>
-            <br>
-
-            <p class="address-title">Address:</p>
-            <ul class="barca">
-                <li>Barcelona Ext 32, Etwatwa</li>
-                <li>Benoni, East Rand</li>
-                <li>City Of Ekurhuleni</li>
-                <li class="gett"><a href="https://www.waze.com/live-map/directions/south-africa/gauteng/benoni/34049-barcelona-st?to=place.ChIJITapZ4E5lR4Rf4l9sgu7-zE&utm_source=chatgpt.com" target="_blank">Visit Map</a></li>
-            </ul>
+    <main>
+        <div class="section-container" id="announcements">
+            <h2 class="section-title">Church Announcements</h2>
+            <div class="section-sub">Stay updated with our latest news and community blessings</div>
+            <div class="announce-grid">
+                <div class="announce-card">
+                    <div class="card-badge">New Season</div>
+                    <h3>40 Days of Prayer & Fasting</h3>
+                    <div class="date-chip">Starts: 1st May 2026</div>
+                    <p>Join us for a transformative 40-day journey of prayer, breakthrough, and spiritual renewal. Morning prayers at 5:30 AM via Zoom and on-site evening sessions.</p>
+                </div>
+                <div class="announce-card">
+                    <div class="card-badge">Outreach</div>
+                    <h3>Community Feeding Scheme</h3>
+                    <div class="date-chip">Every Saturday | 11AM</div>
+                    <p>We are extending hands to families in Barcelona Ext 32. Volunteers needed! Donations of non-perishable food welcome. Let's share God's love practically.</p>
+                </div>
+                <div class="announce-card">
+                    <div class="card-badge">Leadership Summit</div>
+                    <h3>Kingdom Leadership Conference</h3>
+                    <div class="date-chip">22-24 May 2026</div>
+                    <p>Equipping leaders for Vision 2030. Guest ministers from across SA. Register at the church office or online link. Grow from milk to meat!</p>
+                </div>
+            </div>
         </div>
 
-        <div class="footer-content">
-            <h3 class="footh">Quick Links</h3>
-            <ul class="list">
-                <li><a href="#">Home</a></li>
-                <li><a href="#goal">Mission</a></li>
-                <li><a href="#us">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
+        <div class="section-container" id="events">
+            <h2 class="section-title">Upcoming Events</h2>
+            <div class="section-sub">Plan your week and grow with us</div>
+            <div class="events-wrapper">
+                <div class="event-item">
+                    <div class="event-date"><span>06 May</span> Wednesday</div>
+                    <div class="event-info">
+                        <h4>Miracle Service with Apostle Skosana</h4>
+                        <div class="event-time">18:00 PM (Onsite & Livestream)</div>
+                        <p>Expect prophetic declarations, testimonies, and the tangible move of the Holy Spirit.</p>
+                    </div>
+                    <div class="event-btn">Join us</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date"><span>09 May</span> Saturday</div>
+                    <div class="event-info">
+                        <h4>Bible School Intensive: Kingdom Realities</h4>
+                        <div class="event-time">15:00 PM – Youth / Young Adults / Couples</div>
+                        <p>Deep dive into Hebrews 5:12-14. Move from religion to reality!</p>
+                    </div>
+                    <div class="event-btn">Register</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date"><span>10 May</span> Sunday</div>
+                    <div class="event-info">
+                        <h4>Family Sunday & Children's Ministry Day</h4>
+                        <div class="event-time">Main Service 10:30 AM | Kids Church 9AM</div>
+                        <p>Special mother's day celebration + baptisms. Come with your whole family.</p>
+                    </div>
+                    <div class="event-btn">Celebrate</div>
+                </div>
+            </div>
         </div>
+
+        <div class="section-container" id="gallery">
+            <h2 class="section-title">Ministry in Action</h2>
+            <div class="section-sub">Moments of worship, outreach, and fellowship — the life of our church</div>
+            <div class="gallery-modern">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/600x450/f5e6d3/3a2c1f?text=Praise+and+Worship" alt="Worship service">
+                        <div class="gallery-overlay">Sunday Celebration</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/600x450/d9c8a9/2c3e2f?text=Youth+Club+Fun" alt="Youth Ministry activity">
+                        <div class="gallery-overlay">Friday Kids Ministry</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/600x450/cbbf91/1f2a3e?text=Outreach+Food+Drive" alt="Community outreach">
+                        <div class="gallery-overlay">Feeding Scheme</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/600x450/eeddbb/2b3b2c?text=Prayer+Meeting" alt="Tuesday prayer meeting">
+                        <div class="gallery-overlay">Prayer & Fasting</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/600x450/f3e9ce/342a1f?text=Bible+School+Graduates" alt="Bible school class">
+                        <div class="gallery-overlay">Saturday Bible Classes</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://placehold.co/600x450/e7dbb8/1f3b4c?text=Children's+Church" alt="Children's ministry">
+                        <div class="gallery-overlay">Little Disciples</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 28px; font-size: 0.9rem; color: #6c5b3b;">Actual ministry photos coming soon — these represent our joyful gatherings.</p>
+            </div>
         </div>
 
+        <div class="section-container" id="mission-goal">
+            <h2 class="section-title">Our Kingdom Mission</h2>
+            <div class="mission-block">
+                <p class="verse-ref">Matthew 28:18-20</p>
+                <div class="mission-text">
+                    To minister the Word of Faith, teaching believers who they are in Christ Jesus, taking them from milk to meat, and from religion to reality. 
+                    We aim to plant churches within the 9 provinces of South Africa and establish a <strong>Transformational Leadership Movement</strong> in Gauteng by Vision 2030. 
+                    Through partnerships (1 Samuel 30:24) we co-labor for the harvest, providing mutual prayer and financial support.
+                </div>
+            </div>
+        </div>
 
-    </div>
+        <div class="section-container" id="about-us">
+            <h2 class="section-title">Who We Are</h2>
+            <div class="about-block">
+                <div class="about-text">
+                    <p><strong>Acts of the Apostles</strong> was founded in 2021 in Barcelona, Etwatwa Ext 32, City of Ekurhuleni. We are a vibrant, multicultural family driven by Mark 16:15. 
+                    We believe the church is a living body where every culture reflects God's glory. Our doors are open to all seeking a deeper relationship with Christ, 
+                    spiritual growth, and a community that serves with love and power. From Tuesday prayer meetings to Sunday main services, we exist to glorify Jesus and make disciples of all nations.</p>
+                    <br>
+                    <p>Join us at Barcelona Ext 32, Benoni. We are a church with a vision — raising Kingdom leaders, transforming communities, and preaching the gospel to every creature.</p>
+                </div>
+            </div>
+        </div>
 
-    <div class="bottom-bar">
-        <p>&copy; 2021 Acts Of The Apostles. All rights reserved</p>
-    </div>
-</footer>
+        <div class="section-container" id="contact-section">
+            <h2 class="section-title">Send us a Message</h2>
+            <div class="section-sub">We would love to hear from you. Fill the form and we will get back to you.</div>
+            <div class="contact-form-wrapper">
+                <form id="churchContactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="fullName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="emailAddr" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phoneNum" placeholder="+27 XX XXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>Subject *</label>
+                            <input type="text" id="msgSubject" placeholder="Prayer request / Question / Partnership" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Message *</label>
+                        <textarea id="msgContent" placeholder="Write your message or prayer request here..." required></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                    </div>
+                    <div id="formStatusMsg" class="form-status"></div>
+                </form>
+                <p style="font-size: 0.8rem; text-align: center; margin-top: 20px; color: #6c757d;">We will reply via email or phone. God bless you.</p>
+            </div>
+        </div>
+    </main>
 
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footh2" id="cont">Contact Us</h3>
+                <p>Email: fanaskosana@gmail.com</p>
+                <p>Phone: +27 84 730 6764 (Apostle F Skosana)</p>
+                <br>
+                <p class="address-title">Address:</p>
+                <ul class="barca">
+                    <li>Barcelona Ext 32, Etwatwa</li>
+                    <li>Benoni, East Rand</li>
+                    <li>City Of Ekurhuleni</li>
+                    <li class="gett"><a href="https://www.waze.com/live-map/directions/south-africa/gauteng/benoni/34049-barcelona-st?to=place.ChIJITapZ4E5lR4Rf4l9sgu7-zE&utm_source=chatgpt.com" target="_blank">Visit Map</a></li>
+                </ul>
+            </div>
+            <div class="footer-content">
+                <h3 class="footh">Quick Links</h3>
+                <ul class="list">
+                    <li><a href="firstpagetrial.html">Welcome Page</a></li>
+                    <li><a href="#mission-goal">Mission</a></li>
+                    <li><a href="#about-us">About</a></li>
+                    <li><a href="#contact-section">Contact</a></li>
+                    <li><a href="#announcements">Announcements</a></li>
+                    <li><a href="#events">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-content">
+                <h3 class="footh">Service Times</h3>
+                <p>Tuesday Prayer 18:00<br>Wednesday Miracle 18:00<br>Friday Youth 17:00<br>Saturday Bible School 15:00<br>Sunday Main 10:30AM</p>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <p>&copy; 2021 Acts Of The Apostles. All rights reserved | Faith, Unity, Transformation</p>
+        </div>
+    </footer>
 
+  <!-- ONLY showing changed JS part, because your HTML/CSS is already fine -->
+<script>
+    function showSidebar() {
+        document.querySelector('.sidebar')?.classList.add('active');
+    }
 
+    function hideSidebar() {
+        document.querySelector('.sidebar')?.classList.remove('active');
+    }
 
+    const form = document.getElementById('churchContactForm');
+    const statusDiv = document.getElementById('formStatusMsg');
+    const submitBtn = document.getElementById('submitBtn');
 
-    <script>
-function showSidebar(){
-    document.querySelector('.sidebar').classList.add('active');
-}
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-function hideSidebar(){
-    document.querySelector('.sidebar').classList.remove('active');
-}
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('emailAddr').value.trim();
+        const phone = document.getElementById('phoneNum').value.trim();
+        const subject = document.getElementById('msgSubject').value.trim();
+        const message = document.getElementById('msgContent').value.trim();
 
-window.onload = function(){
-    window.scrollTo(0, 0);
-};
+        if (!name || !email || !subject || !message) {
+            showStatus('Please fill all required fields.', 'error');
+            return;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            showStatus('Enter a valid email address.', 'error');
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        showStatus('Sending your message...', 'loading');
+
+        const formData = new FormData();
+        formData.append('access_key', 'YOUR_REAL_ACCESS_KEY_HERE'); // ← FIX THIS
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('subject', subject);
+        formData.append('message', message);
+        formData.append('from_name', 'Church Website');
+        formData.append('replyto', email);
+
+        try {
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                showStatus('Message sent. Check your inbox before you celebrate.', 'success');
+                form.reset();
+            } else {
+                console.error(data);
+                showStatus('Something broke on the server side.', 'error');
+            }
+        } catch (err) {
+            console.error(err);
+            showStatus('Network error. Your internet might be having a crisis.', 'error');
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+    });
+
+    function showStatus(msg, type) {
+        statusDiv.className = 'form-status ' + type;
+        statusDiv.textContent = msg;
+        statusDiv.style.display = 'block';
+
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    window.onload = function () {
+        window.scrollTo(0, 0);
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 800) {
+                document.querySelector('.sidebar')?.classList.remove('active');
+            }
+        });
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (!target) return;
+
+            e.preventDefault();
+            const offset = 85;
+            const pos = target.getBoundingClientRect().top + window.scrollY;
+
+            window.scrollTo({
+                top: pos - offset,
+                behavior: 'smooth'
+            });
+
+            if (window.innerWidth <= 800) hideSidebar();
+        });
+    });
 </script>
-    
+
 </body>
-
 </html>
-
